@@ -1,0 +1,38 @@
+html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+    body {
+      margin: 0px;
+      min-height: 100%;
+      width: 100%;
+      background-color: #292929;
+      color: #686868;
+      font-family: 'Kdam Thmor Pro', sans-serif;
+    }
+}
+main {
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  width: 15rem;
+  margin-right: .5rem;
+  
+  background: rgb(128, 128, 128, .25) !important;
+    img{
+      width: 50%;
+    }
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.containers {
+ display: flex;
+ justify-content: center;
+ padding: 4rem;
+}
