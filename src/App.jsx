@@ -1,11 +1,18 @@
-/* eslint-disable camelcase */
-/* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import './components/style.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cards from './cards';
 
+const Input = styled.div`
+  button {
+    border-radius: 10px;
+  }
+  input {
+    border-radius: 10px;
+  }
+`;
 const apiKey = process.env.REACT_APP_API_KEY;
 
 function App() {
@@ -19,7 +26,13 @@ function App() {
       .then((searchRes) => {
         const { lat, lon } = searchRes.data[0];
         const name = searchRes.data[0].display_name;
-        setLocationName(name);
+        if (name.includes(',')) {
+          const anyname = name.split(',');
+          setLocationName(`${anyname[0]}, ${anyname[2]}`);
+        } else {
+          setLocationName(name);
+        }
+        console.log(searchRes.data);
         axios
           .get(
             `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
@@ -32,15 +45,16 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, [location]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setLocation(input);
   };
   return (
     <main>
-      <h1 className="text-center">{locationName}</h1>
-      <div>
-        <form onSubmit={handleSubmit}>
+      <h1 className="text-center mt-2">{locationName}</h1>
+      <Input>
+        <form onSubmit={handleSubmit} className="d-flex flex-row-reverse mx-5">
           <label htmlFor="searchWeather">
             <input
               type="text"
@@ -52,8 +66,10 @@ function App() {
             <button type="submit">Search</button>
           </label>
         </form>
-      </div>
-      <Cards locationName={locationName} weatherData={weatherData} />
+      </Input>
+      {weatherData.length && (
+        <Cards locationName={locationName} weatherData={weatherData} />
+      )}
     </main>
   );
 }

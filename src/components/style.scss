@@ -18,9 +18,8 @@ main {
 .card {
   display: flex;
   align-items: center;
-  width: 15rem;
+  width: 13rem;
   margin-right: .5rem;
-  
   background: rgb(128, 128, 128, .25) !important;
     img{
       width: 50%;
@@ -28,7 +27,7 @@ main {
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(119, 119, 119, 0.2);
 }
 
 .containers {
