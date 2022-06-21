@@ -17,11 +17,19 @@ const Main = styled.div`
   background-position: top;
   background-size: 1500px;
   min-height: 500px;
+  @media only screen and (max-width: 600px) {
+    background-image: ${(props) => `url(${props.img})`};
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center 20px;
+    background-size: 1200px;
+  }
   .temp {
+    @media only screen and (max-width: 600px) {
+      font-size: 280px;
+    }
     font-size: 330px;
     color: #292929;
-    // -webkit-text-stroke-width: 1px;
-    // -webkit-text-stroke-color: gray;
   }
   display: grid;
   grid-template-columns: 2f 1fr;
@@ -29,15 +37,25 @@ const Main = styled.div`
     margin: 1rem;
     display: flex;
     justify-content: space-evenly;
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
   }
 `;
 const Containers = styled.div`
   font-family: 'Kdam Thmor Pro', sans-serif;
   display: flex;
   justify-content: center;
-  padding: 3rem;
+  padding: 1rem;
   .card {
     border-radius: 50px 10px;
+    @media only screen and (max-width: 600px) {
+      flex-direction: row;
+      min-width: 100%;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    flex-wrap: wrap;
   }
 `;
 

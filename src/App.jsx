@@ -7,10 +7,10 @@ import Cards from './cards';
 
 const Input = styled.div`
   button {
-    border-radius: 10px;
+    border-radius: 10px 2px;
   }
   input {
-    border-radius: 10px;
+    border-radius: 10px 2px;
   }
 `;
 const apiKey = process.env.REACT_APP_API_KEY;
