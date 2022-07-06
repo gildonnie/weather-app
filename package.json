@@ -1,5 +1,6 @@
 {
   "name": "weather-app",
+  "homepage": "https://gildonnie.github.io/react-pages",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,6 +22,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -55,6 +58,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "gh-pages": "^4.0.0",
     "prettier": "2.6.2"
   }
 }
