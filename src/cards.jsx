@@ -59,24 +59,9 @@ const Containers = styled.div`
   }
 `;
 
-function Cards({ locationName, weatherData }) {
+function Cards({ weatherData }) {
   const [cardData, setCardData] = useState({});
   const [background, setBackground] = useState();
-
-  const setDaysOfTheWeek = (DT) => {
-    const days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
-    const time = new Date(DT * 1000);
-    const dayName = days[time.getDay()];
-    return dayName;
-  };
 
   const setDayOfTheWeek = (DT) => {
     const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
@@ -184,7 +169,6 @@ function Cards({ locationName, weatherData }) {
   );
 }
 Cards.propTypes = {
-  locationName: PropTypes.string.isRequired,
   weatherData: PropTypes.instanceOf(Object),
 };
 

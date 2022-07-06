@@ -1,8 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import App from './App';
-import Containers from './cards';
 
 test('Check if form and button are on the screen and veryifying the type', async () => {
   render(<App />);
