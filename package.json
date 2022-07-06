@@ -1,6 +1,6 @@
 {
   "name": "weather-app",
-  "homepage": "https://gildonnie.github.io/react-pages",
+  "homepage": "https://gildonnie.github.io/weather-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
