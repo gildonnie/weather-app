@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux/es/exports';
 import styled from 'styled-components';
 import './components/style.scss';
 import PropTypes from 'prop-types';
+import { setCard, setBack } from './store/cardSlice';
 import sun from './IMGs/sun.png';
 import cloudy from './IMGs/cloudy1.png';
 import rain from './IMGs/rain.png';
@@ -60,8 +62,13 @@ const Containers = styled.div`
 `;
 
 function Cards({ weatherData }) {
-  const [cardData, setCardData] = useState({});
-  const [background, setBackground] = useState();
+  // const [cardData, setCardData] = useState({});
+  // const [background, setBackground] = useState();
+  const { cardData, background } = useSelector(
+    (state) => state.card,
+    shallowEqual
+  );
+  const dispatch = useDispatch();
 
   const setDayOfTheWeek = (DT) => {
     const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
@@ -78,52 +85,56 @@ function Cards({ weatherData }) {
   };
 
   const extraCard = (event) => {
-    setCardData(event);
+    dispatch(setCard(event));
     switch (event.weather[0].icon) {
       case '02d':
-        return setBackground(cloudy);
+        return dispatch(setBack(cloudy));
+      case '03d':
+        return dispatch(setBack(clouds));
       case '01d':
-        return setBackground(sun);
+        return dispatch(setBack(sun));
       case '10d':
-        return setBackground(rain);
+        return dispatch(setBack(rain));
       case '04d':
-        return setBackground(clouds);
+        return dispatch(setBack(clouds));
       case '11d':
-        return setBackground(lightning);
+        return dispatch(setBack(lightning));
       case '13d':
-        return setBackground(snow);
+        return dispatch(setBack(snow));
       default:
-        return setBackground(sun);
+        return dispatch(setBack(sun));
     }
   };
   console.log(weatherData);
   useEffect(() => {
     const getData = async () => {
       const data = weatherData[0];
-      setCardData(data);
+      dispatch(setCard(data));
       const dayBackground = weatherData[0].weather[0].icon;
       console.log(dayBackground);
       switch (dayBackground) {
         case '02d':
-          return setBackground(cloudy);
+          return dispatch(setBack(cloudy));
+        case '03d':
+          return dispatch(setBack(clouds));
         case '01d':
-          return setBackground(sun);
+          return dispatch(setBack(sun));
         case '10d':
-          return setBackground(rain);
+          return dispatch(setBack(rain));
         case '04d':
-          return setBackground(clouds);
+          return dispatch(setBack(clouds));
         case '11d':
-          return setBackground(lightning);
+          return dispatch(setBack(lightning));
         case '13d':
-          return setBackground(snow);
+          return dispatch(setBack(snow));
         default:
-          return setBackground(sun);
+          return dispatch(setBack(sun));
       }
     };
     if (Object.keys(weatherData).length !== 0) {
       getData();
     }
-  }, [weatherData]);
+  }, [weatherData, dispatch]);
 
   return (
     <>

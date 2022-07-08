@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux/es/exports';
 import axios from 'axios';
 import styled from 'styled-components';
 import './components/style.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cards from './cards';
+import { setLoc, setLocNa, setInput } from './store/locSlice';
 
 const Input = styled.div`
   button {
@@ -16,10 +18,15 @@ const Input = styled.div`
 const apiKey = process.env.REACT_APP_API_KEY;
 
 function App() {
-  const [location, setLocation] = useState('Fresno, CA');
-  const [input, setInput] = useState('');
-  const [locationName, setLocationName] = useState('');
+  // const [location, setLocation] = useState('Fresno, CA');
+  // const [input, setInput] = useState('');
+  // const [locationName, setLocationName] = useState('');
   const [weatherData, setWeatherData] = useState([]);
+  const dispatch = useDispatch();
+  const { location, locationName, input } = useSelector(
+    (state) => state.loc,
+    shallowEqual
+  );
   useEffect(() => {
     axios
       .get(`https://geocode.maps.co/search?q=${location}`)
@@ -28,9 +35,9 @@ function App() {
         const name = searchRes.data[0].display_name;
         if (name.includes(',')) {
           const anyname = name.split(',');
-          setLocationName(`${anyname[0]}, ${anyname[2]}`);
+          dispatch(setLocNa(`${anyname[0]}, ${anyname[2]}`));
         } else {
-          setLocationName(name);
+          dispatch(setLocNa(name));
         }
         console.log(searchRes.data);
         axios
@@ -44,11 +51,11 @@ function App() {
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-  }, [location]);
+  }, [location, dispatch]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLocation(input);
+    dispatch(setLoc(input));
   };
   return (
     <main>
@@ -61,15 +68,13 @@ function App() {
               value={input}
               id="searchWeather"
               placeholder="Fresno, CA"
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => dispatch(setInput(e.target.value))}
             />
             <button type="submit">Search</button>
           </label>
         </form>
       </Input>
-      {weatherData.length && (
-        <Cards locationName={locationName} weatherData={weatherData} />
-      )}
+      {weatherData.length && <Cards weatherData={weatherData} />}
     </main>
   );
 }
