@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux/es/exports';
 import styled from 'styled-components';
 import './components/style.scss';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { setCard, setBack } from './store/cardSlice';
 import sun from './IMGs/sun.png';
 import cloudy from './IMGs/cloudy1.png';
@@ -61,13 +61,14 @@ const Containers = styled.div`
   }
 `;
 
-function Cards({ weatherData }) {
+function Cards() {
   // const [cardData, setCardData] = useState({});
   // const [background, setBackground] = useState();
   const { cardData, background } = useSelector(
     (state) => state.card,
     shallowEqual
   );
+  const { weatherData } = useSelector((state) => state.loc);
   const dispatch = useDispatch();
 
   const setDayOfTheWeek = (DT) => {
@@ -179,11 +180,11 @@ function Cards({ weatherData }) {
     </>
   );
 }
-Cards.propTypes = {
-  weatherData: PropTypes.instanceOf(Object),
-};
+// Cards.propTypes = {
+//   weatherData: PropTypes.instanceOf(Object),
+// };
 
-Cards.defaultProps = {
-  weatherData: {},
-};
+// Cards.defaultProps = {
+//   weatherData: {},
+// };
 export default Cards;

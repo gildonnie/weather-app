@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux/es/exports';
 import axios from 'axios';
 import styled from 'styled-components';
 import './components/style.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cards from './cards';
-import { setLoc, setLocNa, setInput } from './store/locSlice';
+import { setLoc, setLocNa, setInput, setData } from './store/locSlice';
 
 const Input = styled.div`
   button {
@@ -21,7 +21,7 @@ function App() {
   // const [location, setLocation] = useState('Fresno, CA');
   // const [input, setInput] = useState('');
   // const [locationName, setLocationName] = useState('');
-  const [weatherData, setWeatherData] = useState([]);
+  // const [weatherData, setWeatherData] = useState([]);
   const dispatch = useDispatch();
   const { location, locationName, input } = useSelector(
     (state) => state.loc,
@@ -46,7 +46,7 @@ function App() {
           )
           .then((weatherCall) => {
             const data = weatherCall.data.daily;
-            setWeatherData(data);
+            dispatch(setData(data));
           })
           .catch((err) => console.log(err));
       })
@@ -74,7 +74,7 @@ function App() {
           </label>
         </form>
       </Input>
-      {weatherData.length && <Cards weatherData={weatherData} />}
+      <Cards />
     </main>
   );
 }
